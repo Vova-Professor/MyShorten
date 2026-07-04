@@ -1,8 +1,9 @@
 [package]
 name = "shortcut"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2024"
 
 [dependencies]
 clap = {version = "4", features = ["derive"]}
 rusqlite = { version = "0.33.0", features = ["bundled"] }
+home = "0.5.12"

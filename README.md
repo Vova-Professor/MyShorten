@@ -1,5 +1,5 @@
 # MyShorten
-version 1.0.1
+version 1.0.2
 
 It's a really simple CLI tool, you just add links to it and then using your code you can get the link. I made it just to practise new crates on Rust, such as `rusqlite` to make queries to the table and `clap` to parse commands from user input.
 
@@ -31,4 +31,4 @@ E.g. `C:/Users/User1/Downloads/Folder/`
 `shortcut get <CODE>` - returns the URL associated with the given code
 
 ## What's NEW?
-- Now you can freely use PATH, without any concern.
+- Added colored output.

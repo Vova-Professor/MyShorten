@@ -2,6 +2,7 @@ use clap::{Parser, Subcommand};
 use rusqlite::{Connection, Result};
 use std::{fs, path::{PathBuf}};
 use home::home_dir;
+use colored::Colorize;
 
 #[derive(Parser)]
 struct Cli {
@@ -35,22 +36,21 @@ fn main() {
         },
         Commands::Get { code } => {
             match get_in(code, &db_path) {
-                Ok(url) => println!("Fast link ->\n{url}"),
-                Err(_) => println!("Code not found"),
+                Ok(url) => println!("{}\n{url}", "Fast link ->".cyan().bold()),
+                Err(_) => println!("{}", "Code not found".truecolor(243, 111, 17)),
             }
         }
     }
 }
 
 fn shortens_path() -> Result<PathBuf, String> {
-    let mut db_path = home_dir().ok_or("Home directory not found...")?;
+    let mut db_path = home_dir().ok_or_else(|| format!("{}", "Home directory not found...".red().bold()))?;
     db_path.push("MyShorten");
-    fs::create_dir_all(&db_path).map_err(|e| format!("Failed to create the directory: {e}"))?;
+    fs::create_dir_all(&db_path).map_err(|e| format!("{}: {e}", "Failed to create the directory".red().bold()))?;
     db_path.push("shortens.db");
 
     Ok(db_path)
 }
-
 
 fn set_in(link: String, code: String, db_path: &PathBuf) -> Result<()> {
 
